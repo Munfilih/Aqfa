@@ -470,7 +470,7 @@ html[dir="rtl"] .icon-inline {
 .main-content {
     position: relative;
     padding-top: 80px; /* Header spacing */
-    min-height: calc(100vh - 80px);
+    overflow: hidden; /* Clip inactive absolutely-positioned sections */
 }
 
 .page-section {
@@ -479,10 +479,12 @@ html[dir="rtl"] .icon-inline {
     transform: translateY(15px);
     transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
     position: absolute;
-    top: 0;
+    top: 80px; /* Align with content start after header offset */
     left: 0;
     width: 100%;
     pointer-events: none;
+    height: 0;        /* Zero height when inactive — removes phantom spacing */
+    overflow: hidden;
 }
 
 .page-section.active {
@@ -490,7 +492,10 @@ html[dir="rtl"] .icon-inline {
     visibility: visible;
     transform: translateY(0);
     position: relative;
+    top: auto;
     pointer-events: auto;
+    height: auto;     /* Restore natural height when active */
+    overflow: visible;
 }
 
 /* ==========================================================================
